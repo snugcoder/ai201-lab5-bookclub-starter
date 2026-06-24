@@ -119,9 +119,14 @@ def get_reading_history(user_id: str) -> list[ReadingEvent]:
         List of ReadingEvent objects ordered by finished_at descending.
     """
     return (
+        # diagnosis
+            # the docustring says to return a list of ReadingEvent objects ordered by finished_at in descending order
+            # the code previously returned started_at in descending order
+            # the bug is on line 128
+            # the fix is changing started_at to finished_at
         ReadingEvent.query.filter_by(user_id=user_id)
         .filter(ReadingEvent.finished_at.isnot(None))
-        .order_by(ReadingEvent.started_at.desc())
+        .order_by(ReadingEvent.finished_at.desc())
         .all()
     )
 
