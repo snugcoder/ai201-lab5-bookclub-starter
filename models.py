@@ -81,7 +81,7 @@ class ReadingEvent(db.Model):
 
     __table_args__ = (
         db.UniqueConstraint("user_id", "book_id", name="unique_user_book"),
-    )
+    ) #unique constraint prevents 
 
     def to_dict(self):
         return {

@@ -31,8 +31,14 @@ def calculate_streak(user_id: str) -> int:
         return 0
 
     # Collect unique reading dates, most recent first.
+    
+    # diagnosis:
+        # docustring says to calculate a finished book streak starting from today or yesterday (only)
+        # the code was previously using started at dates to create a streak which would have not properly captured the purpose of the streak as defined in the docustring
+        # the bug is on line 40
+        # the fix is changing started_at to finsihed_at
     dates = sorted(
-        set(e.started_at.date() for e in events),
+        set(e.finished_at.date() for e in events),
         reverse=True,
     )
 
